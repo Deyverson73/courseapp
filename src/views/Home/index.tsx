@@ -80,7 +80,7 @@ const Home = () => {
           />
         </FirstTopCourse>
         <SecondTopCourse>
-          <TopCourseTitle>Data</TopCourseTitle>
+          <TopCourseTitle>Cosumer</TopCourseTitle>
           <TopCourseTitle>Analysis</TopCourseTitle>
           <SecondTopCourseImage
             resizeMode="contain"

@@ -1,13 +1,22 @@
 import React from 'react';
-import { TextProps } from 'react-native';
 import { TextComp } from './styles';
 
-interface Props extends TextProps {
-  children: string;
-}
+const Text = (props: any) => {
+  const newProps = {
+    ...props,
+    style: [
+      {
+        ...props.style[0],
+        fontWeight: 'normal',
+        fontFamily:
+          props.style[0].fontWeight === 'bold'
+            ? 'Quicksand-Bold'
+            : 'Quicksand-Regular',
+      },
+    ],
+  };
 
-const Text = (props: Props) => {
-  return <TextComp {...props}>{props.children}</TextComp>;
+  return <TextComp {...newProps}>{props.children}</TextComp>;
 };
 
 export default Text;

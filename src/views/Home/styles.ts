@@ -149,7 +149,7 @@ export const FirstTopCourse = styled.View`
 
 export const FirstTopCourseImage = styled.Image`
   position: absolute;
-  bottom: 20px;
+  margin-top: 80%;
   align-self: center;
   width: 100px;
   height: 100px;
@@ -167,7 +167,7 @@ export const SecondTopCourse = styled.View`
 
 export const SecondTopCourseImage = styled.Image`
   position: absolute;
-  bottom: 8px;
+  margin-top: 80%;
   align-self: center;
   width: 120px;
   height: 120px;

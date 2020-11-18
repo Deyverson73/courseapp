@@ -1,11 +1,21 @@
 import React from 'react';
-import { TextInputProps } from 'react-native';
 import { TextInputComp } from './styles';
 
-interface Props extends TextInputProps {}
-
-const TextInput = (props: Props) => {
-  return <TextInputComp {...props} />;
+const TextInput = (props: any) => {
+  const newProps = {
+    ...props,
+    style: [
+      {
+        ...props.style[0],
+        fontWeight: 'normal',
+        fontFamily:
+          props.style[0].fontWeight === 'bold'
+            ? 'Quicksand-Bold'
+            : 'Quicksand-Regular',
+      },
+    ],
+  };
+  return <TextInputComp {...newProps} />;
 };
 
 export default TextInput;
