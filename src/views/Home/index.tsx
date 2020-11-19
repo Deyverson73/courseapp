@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import {
   StatusBar,
@@ -29,11 +29,21 @@ import {
   TopCourseTitle,
   Footer,
   GridIcon,
+  PlayButton,
   PlayIcon,
   GraphicIcon,
 } from './styles';
+import List from '../List';
+
+interface imperativeFunctions {
+  openModal: () => void;
+}
 
 const Home = () => {
+  const refList = useRef<imperativeFunctions>();
+
+  const openModal = () => refList.current?.openModal();
+
   return (
     <Container>
       <StatusBar />
@@ -91,9 +101,13 @@ const Home = () => {
 
       <Footer>
         <GridIcon />
-        <PlayIcon />
+        <PlayButton onPress={() => openModal()}>
+          <PlayIcon />
+        </PlayButton>
         <GraphicIcon />
       </Footer>
+
+      <List refList={refList} />
     </Container>
   );
 };

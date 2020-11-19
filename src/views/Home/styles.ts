@@ -202,17 +202,22 @@ export const GridIcon = styled((props) => Icon(props, 'SimpleLineIcons')).attrs(
   font-size: 26px;
 `;
 
+export const PlayButton = styled.TouchableHighlight.attrs({
+  underlayColor: '#ffffff',
+})`
+  margin-top: -27px;
+  margin-bottom: -27px;
+  border-radius: 100px;
+  background-color: #ffffff;
+  z-index: 100;
+`;
+
 export const PlayIcon = styled((props) => Icon(props, 'AntDesign')).attrs({
   name: 'play',
   color: '#5D3EA8',
 })`
-  margin-top: -27px;
-  margin-bottom: -27px;
   font-size: 76px;
   padding: 4px;
-  border-radius: 100px;
-  background-color: #ffffff;
-  z-index: 100;
 `;
 
 export const GraphicIcon = styled((props) => Icon(props, 'Feather')).attrs({
