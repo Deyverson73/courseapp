@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useImperativeHandle } from 'react';
-
-import { Modal } from 'react-native';
+import { Modal, FlatList, StyleSheet } from 'react-native';
 import {
   StatusBar,
   ModalContainer,
@@ -8,14 +7,65 @@ import {
   BackIcon,
   HeaderImage,
   DetailsContainer,
-  DetailsTitle,
+  Title,
   BookMarkIcon,
+  UserInfo,
+  UserImage,
+  UserName,
+  CourseDetails,
+  DetailsItem,
+  DetailsText,
+  ClockIcon,
+  FolderIcon,
   ListContainer,
+  LessonSeparator,
+  SubscribeButton,
+  SubscribeText,
 } from './styles';
+import LessonCard from '../../components/lesson.card';
 
-interface imperativeFunctions {
+interface ImperativeFunctions {
   openModal: () => void;
 }
+
+interface Lesson {
+  id: string;
+  number: string;
+  title: string;
+  duration: string;
+  played: boolean;
+}
+
+const data: Lesson[] = [
+  {
+    id: '1',
+    number: '01',
+    title: 'Introduction',
+    duration: '15 mins',
+    played: true,
+  },
+  {
+    id: '2',
+    number: '02',
+    title: 'Market Research',
+    duration: '10 mins',
+    played: true,
+  },
+  {
+    id: '3',
+    number: '03',
+    title: 'Make a Website',
+    duration: '20 mins',
+    played: false,
+  },
+  {
+    id: '4',
+    number: '04',
+    title: 'Email Marketing',
+    duration: '15 mins',
+    played: false,
+  },
+];
 
 const List = (props: any) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -30,18 +80,20 @@ const List = (props: any) => {
 
   useImperativeHandle(
     props.refList,
-    (): imperativeFunctions => {
+    (): ImperativeFunctions => {
       return {
         openModal,
       };
     },
   );
 
+  const renderLessons = (item: Lesson) => <LessonCard item={item} />;
+
   return (
     <Modal
       visible={visible}
       animated
-      animationType="none"
+      animationType="fade"
       transparent={true}
       onRequestClose={closeModal}>
       <ModalContainer>
@@ -54,16 +106,46 @@ const List = (props: any) => {
           />
         </Header>
         <DetailsContainer>
-          <DetailsTitle>Digital Marketing</DetailsTitle>
-          <DetailsTitle>Course </DetailsTitle>
+          <Title>Digital Marketing</Title>
+          <Title>Course </Title>
           <BookMarkIcon />
+          <UserInfo>
+            <UserImage source={require('../../assets/images/avatar.png')} />
+            <UserName>Deyverson Abreu</UserName>
+          </UserInfo>
+          <CourseDetails>
+            <DetailsItem>
+              <ClockIcon />
+              <DetailsText>1 hour</DetailsText>
+            </DetailsItem>
+            <DetailsItem>
+              <FolderIcon />
+              <DetailsText>4 lessons</DetailsText>
+            </DetailsItem>
+          </CourseDetails>
         </DetailsContainer>
         <ListContainer>
-          <></>
+          <Title>Lessons</Title>
+          <FlatList
+            contentContainerStyle={styles.list}
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => renderLessons(item)}
+            ItemSeparatorComponent={LessonSeparator}
+          />
         </ListContainer>
+        <SubscribeButton>
+          <SubscribeText>Enroll Now</SubscribeText>
+        </SubscribeButton>
       </ModalContainer>
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    marginTop: 15,
+  },
+});
 
 export default List;

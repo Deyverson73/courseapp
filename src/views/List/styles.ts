@@ -11,6 +11,7 @@ export const ModalContainer = styled.View`
   background-color: #ffffff;
 `;
 
+// Header
 export const Header = styled.View`
   height: 30%;
   align-items: flex-end;
@@ -37,6 +38,7 @@ export const BackIcon = styled((props) => Icon(props, 'Ionicons')).attrs({
   background-color: #6d51b1;
 `;
 
+// Details
 export const DetailsContainer = styled.View`
   height: 35%;
   border-top-left-radius: 40px;
@@ -46,7 +48,7 @@ export const DetailsContainer = styled.View`
   background-color: #eefaff;
 `;
 
-export const DetailsTitle = styled(Text)`
+export const Title = styled(Text)`
   font-size: 28px;
   line-height: 35px;
   font-weight: bold;
@@ -62,16 +64,93 @@ export const BookMarkIcon = styled((props) => Icon(props, 'FontAwesome')).attrs(
   top: 28px;
   right: 28px;
   font-size: 20px;
-  padding: 10px 14px;
+  padding: 9px 12px;
   border-radius: 100px;
   background-color: #ffffff;
   elevation: 30;
 `;
 
+export const UserInfo = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+`;
+
+export const UserImage = styled.Image`
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+`;
+
+export const UserName = styled(Text)`
+  font-size: 22px;
+  margin-top: -4px;
+  margin-left: 8px;
+`;
+
+export const CourseDetails = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+export const DetailsItem = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ClockIcon = styled((props) =>
+  Icon(props, 'MaterialCommunityIcons'),
+).attrs({
+  name: 'clock-time-five-outline',
+  color: '#6d51b1',
+})`
+  font-size: 20px;
+`;
+
+export const FolderIcon = styled((props) => Icon(props, 'Feather')).attrs({
+  name: 'folder',
+  color: '#6d51b1',
+})`
+  font-size: 20px;
+`;
+
+export const DetailsText = styled(Text)`
+  font-size: 22px;
+  margin-top: -4px;
+  margin-left: 8px;
+  color: #6d51b1;
+`;
+
+// List
 export const ListContainer = styled.View`
-  height: 20%;
+  flex: 1;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
-  margin-top: -17%;
+  margin-top: -25%;
+  padding: 28px 28px 0px;
   background-color: #ffffff;
+`;
+
+export const LessonSeparator = styled.View`
+  height: 1px;
+  margin: 16px 0px;
+  border-bottom-width: 0.7px;
+  border-color: #dcdcdc;
+`;
+
+// Subscribe Button
+export const SubscribeButton = styled.TouchableHighlight`
+  justify-content: center;
+  align-items: center;
+  margin: 10px 28px 28px;
+  padding: 20px 0px;
+  border-radius: 100px;
+  background-color: #5d3ea8;
+`;
+
+export const SubscribeText = styled(Text)`
+  font-size: 22px;
+  margin-top: -4px;
+  color: #ffffff;
 `;

@@ -48,7 +48,7 @@ const Home = () => {
     <Container>
       <StatusBar animated />
       <Header>
-        <UserName>Hi, User</UserName>
+        <UserName>Hi, Deyverson</UserName>
         <Title>Find a perfect course for you</Title>
         <UserImage source={require('../../assets/images/avatar.png')} />
       </Header>

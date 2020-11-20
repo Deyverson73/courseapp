@@ -10,6 +10,8 @@ const iconsDictionary: dictionary = {
   SimpleLineIcons: require('react-native-vector-icons/SimpleLineIcons').default,
   Ionicons: require('react-native-vector-icons/Ionicons').default,
   FontAwesome: require('react-native-vector-icons/FontAwesome').default,
+  MaterialCommunityIcons: require('react-native-vector-icons/MaterialCommunityIcons')
+    .default,
 };
 
 const index = ({ ...props }: any, lib: string) => {
