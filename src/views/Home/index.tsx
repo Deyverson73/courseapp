@@ -46,7 +46,7 @@ const Home = () => {
 
   return (
     <Container>
-      <StatusBar />
+      <StatusBar animated />
       <Header>
         <UserName>Hi, User</UserName>
         <Title>Find a perfect course for you</Title>

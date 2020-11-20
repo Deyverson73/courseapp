@@ -1,7 +1,17 @@
 import React, { useState, useCallback, useImperativeHandle } from 'react';
 
 import { Modal } from 'react-native';
-import { StatusBar, ModalContainer, Header, Details } from './styles';
+import {
+  StatusBar,
+  ModalContainer,
+  Header,
+  BackIcon,
+  HeaderImage,
+  DetailsContainer,
+  DetailsTitle,
+  BookMarkIcon,
+  ListContainer,
+} from './styles';
 
 interface imperativeFunctions {
   openModal: () => void;
@@ -31,17 +41,26 @@ const List = (props: any) => {
     <Modal
       visible={visible}
       animated
-      animationType="slide"
+      animationType="none"
       transparent={true}
       onRequestClose={closeModal}>
       <ModalContainer>
-        <StatusBar />
+        <StatusBar animated />
         <Header>
-          <></>
+          <BackIcon onTouchEnd={closeModal} />
+          <HeaderImage
+            resizeMode="contain"
+            source={require('../../assets/images/headerimage.png')}
+          />
         </Header>
-        <Details>
+        <DetailsContainer>
+          <DetailsTitle>Digital Marketing</DetailsTitle>
+          <DetailsTitle>Course </DetailsTitle>
+          <BookMarkIcon />
+        </DetailsContainer>
+        <ListContainer>
           <></>
-        </Details>
+        </ListContainer>
       </ModalContainer>
     </Modal>
   );
