@@ -75,6 +75,7 @@ const List = (props: any) => {
   }, []);
 
   const closeModal = () => {
+    props.animateComponentsIn();
     setVisible(false);
   };
 
