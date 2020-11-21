@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Dimensions } from 'react-native';
 import {
   StatusBar,
   Container,
@@ -40,99 +40,68 @@ interface imperativeFunctions {
 }
 
 const Home = () => {
-  const userNameAnimateX = new Animated.Value(-200);
-  const titleAnimateX = new Animated.Value(-200);
-  const userImageAnimateOpacity = new Animated.Value(0);
-  const searchInputOpacity = new Animated.Value(0);
-  const mainCardOpacity = new Animated.Value(0);
-  const titleTopCoursesAnimateX = new Animated.Value(-200);
-  const topCoursesAnimateY = new Animated.Value(500);
-  const footerAnimateY = new Animated.Value(500);
+  const headerAnimateY = new Animated.Value(Dimensions.get('screen').height);
+  const mainCardAnimateY = new Animated.Value(Dimensions.get('screen').height);
+  const topCoursesAnimateY = new Animated.Value(
+    Dimensions.get('screen').height,
+  );
+  const footerAnimateY = new Animated.Value(Dimensions.get('screen').height);
 
   const refList = useRef<imperativeFunctions>();
   const openModal = () => {
     animateComponentsOut().finally(() => refList.current?.openModal());
   };
 
-  const defaultProperties = {
-    duration: 600,
-    useNativeDriver: true,
-    easing: Easing.ease,
-  };
-
   const animateComponentsIn = useCallback(() => {
     Animated.parallel([
-      Animated.timing(userNameAnimateX, {
+      Animated.timing(headerAnimateY, {
         toValue: 0,
-        ...defaultProperties,
+        duration: 600,
+        useNativeDriver: true,
       }),
-      Animated.timing(titleAnimateX, {
+      Animated.timing(mainCardAnimateY, {
         toValue: 0,
-        ...defaultProperties,
-      }),
-      Animated.timing(userImageAnimateOpacity, {
-        toValue: 1,
-        ...defaultProperties,
-      }),
-      Animated.timing(searchInputOpacity, {
-        toValue: 1,
-        ...defaultProperties,
-      }),
-      Animated.timing(mainCardOpacity, {
-        toValue: 1,
-        ...defaultProperties,
-      }),
-      Animated.timing(titleTopCoursesAnimateX, {
-        toValue: 0,
-        ...defaultProperties,
+        duration: 800,
+        useNativeDriver: true,
       }),
       Animated.timing(topCoursesAnimateY, {
         toValue: 0,
-        ...defaultProperties,
+        duration: 1200,
+        useNativeDriver: true,
       }),
       Animated.timing(footerAnimateY, {
         toValue: 0,
-        ...defaultProperties,
+        duration: 1600,
+        useNativeDriver: true,
       }),
     ]).start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const animateComponentsOut = useCallback(() => {
+    const toValue = Dimensions.get('screen').height;
     return new Promise((resolve) => {
       Animated.parallel(
         [
-          Animated.timing(userNameAnimateX, {
-            toValue: -200,
-            ...defaultProperties,
+          Animated.timing(headerAnimateY, {
+            toValue,
+            duration: 600,
+            useNativeDriver: true,
           }),
-          Animated.timing(titleAnimateX, {
-            toValue: -200,
-            ...defaultProperties,
-          }),
-          Animated.timing(userImageAnimateOpacity, {
-            toValue: 0,
-            ...defaultProperties,
-          }),
-          Animated.timing(searchInputOpacity, {
-            toValue: 0,
-            ...defaultProperties,
-          }),
-          Animated.timing(mainCardOpacity, {
-            toValue: 0,
-            ...defaultProperties,
-          }),
-          Animated.timing(titleTopCoursesAnimateX, {
-            toValue: -200,
-            ...defaultProperties,
+          Animated.timing(mainCardAnimateY, {
+            toValue,
+            duration: 400,
+            useNativeDriver: true,
           }),
           Animated.timing(topCoursesAnimateY, {
-            toValue: 500,
-            ...defaultProperties,
+            toValue,
+            duration: 200,
+            useNativeDriver: true,
           }),
           Animated.timing(footerAnimateY, {
-            toValue: 500,
-            ...defaultProperties,
+            toValue,
+            duration: 100,
+            useNativeDriver: true,
           }),
         ].reverse(),
       ).start(() => resolve());
@@ -148,47 +117,27 @@ const Home = () => {
   return (
     <Container>
       <StatusBar animated />
-      <Header>
-        <UserName
-          as={Animated.Text}
-          style={{
-            opacity: userNameAnimateX.interpolate({
-              inputRange: [-150, 0],
-              outputRange: [0, 1],
-              extrapolate: 'clamp',
-            }),
-            transform: [{ translateX: userNameAnimateX }],
-          }}>
-          Hi, Deyverson
-        </UserName>
-        <Title
-          as={Animated.Text}
-          style={{
-            opacity: titleAnimateX.interpolate({
-              inputRange: [-150, 0],
-              outputRange: [0, 1],
-              extrapolate: 'clamp',
-            }),
-            transform: [{ translateX: titleAnimateX }],
-          }}>
-          Find a perfect course for you
-        </Title>
-        <UserImage
-          as={Animated.Image}
-          style={{ opacity: userImageAnimateOpacity }}
-          source={require('../../assets/images/avatar.png')}
-        />
-      </Header>
-      <InputContainer
+      <Header
         as={Animated.View}
-        style={{ opacity: searchInputOpacity }}>
-        <SearchInput placeholder="Search course..." />
-        <SearchButton onPress={() => ''}>
-          <SearchIcon />
-        </SearchButton>
-      </InputContainer>
+        style={{
+          transform: [{ translateY: headerAnimateY }],
+        }}>
+        <UserName>Hi, Deyverson</UserName>
+        <Title>Find a perfect course for you</Title>
+        <UserImage source={require('../../assets/images/avatar.png')} />
+        <InputContainer>
+          <SearchInput placeholder="Search course..." />
+          <SearchButton onPress={() => ''}>
+            <SearchIcon />
+          </SearchButton>
+        </InputContainer>
+      </Header>
 
-      <MainCard as={Animated.View} style={{ opacity: mainCardOpacity }}>
+      <MainCard
+        as={Animated.View}
+        style={{
+          transform: [{ translateY: mainCardAnimateY }],
+        }}>
         <MainContent>
           <TitleContainer>
             <TitleCart>Mobile</TitleCart>
@@ -211,12 +160,7 @@ const Home = () => {
       <TopCoursesText
         as={Animated.Text}
         style={{
-          opacity: titleTopCoursesAnimateX.interpolate({
-            inputRange: [-150, 0],
-            outputRange: [0, 1],
-            extrapolate: 'clamp',
-          }),
-          transform: [{ translateX: titleTopCoursesAnimateX }],
+          transform: [{ translateY: topCoursesAnimateY }],
         }}>
         Top Courses
       </TopCoursesText>

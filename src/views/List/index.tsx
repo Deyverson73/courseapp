@@ -1,5 +1,17 @@
-import React, { useState, useCallback, useImperativeHandle } from 'react';
-import { Modal, FlatList, StyleSheet } from 'react-native';
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useImperativeHandle,
+} from 'react';
+import {
+  Modal,
+  FlatList,
+  StyleSheet,
+  Animated,
+  Dimensions,
+} from 'react-native';
+
 import {
   StatusBar,
   ModalContainer,
@@ -19,6 +31,7 @@ import {
   FolderIcon,
   ListContainer,
   LessonSeparator,
+  ButtonContainer,
   SubscribeButton,
   SubscribeText,
 } from './styles';
@@ -70,13 +83,75 @@ const data: Lesson[] = [
 const List = (props: any) => {
   const [visible, setVisible] = useState<boolean>(false);
 
+  const headerAnimateY = new Animated.Value(Dimensions.get('screen').height);
+  const detailsAnimateY = new Animated.Value(Dimensions.get('screen').height);
+  const listAnimateY = new Animated.Value(Dimensions.get('screen').height);
+  const buttonAnimateY = new Animated.Value(Dimensions.get('screen').height);
+
+  const animateComponentsIn = () => {
+    Animated.parallel([
+      Animated.timing(headerAnimateY, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(detailsAnimateY, {
+        toValue: 0,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+      Animated.timing(listAnimateY, {
+        toValue: 0,
+        duration: 1200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonAnimateY, {
+        toValue: 0,
+        duration: 1600,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const animateComponentsOut = () => {
+    const toValue = Dimensions.get('screen').height;
+    return new Promise((resolve) => {
+      Animated.parallel(
+        [
+          Animated.timing(headerAnimateY, {
+            toValue,
+            duration: 600,
+            useNativeDriver: true,
+          }),
+          Animated.timing(detailsAnimateY, {
+            toValue,
+            duration: 400,
+            useNativeDriver: true,
+          }),
+          Animated.timing(listAnimateY, {
+            toValue,
+            duration: 200,
+            useNativeDriver: true,
+          }),
+          Animated.timing(buttonAnimateY, {
+            toValue,
+            duration: 100,
+            useNativeDriver: true,
+          }),
+        ].reverse(),
+      ).start(() => resolve());
+    });
+  };
+
   const openModal = useCallback(() => {
     setVisible(true);
   }, []);
 
   const closeModal = () => {
-    props.animateComponentsIn();
-    setVisible(false);
+    animateComponentsOut().finally(() => {
+      setVisible(false);
+      props.animateComponentsIn();
+    });
   };
 
   useImperativeHandle(
@@ -90,23 +165,38 @@ const List = (props: any) => {
 
   const renderLessons = (item: Lesson) => <LessonCard item={item} />;
 
+  useEffect(() => {
+    animateComponentsIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
+
   return (
     <Modal
       visible={visible}
+      style={styles.modal}
       animated
       animationType="fade"
       transparent={true}
       onRequestClose={closeModal}>
       <ModalContainer>
         <StatusBar animated />
-        <Header>
+        <Header
+          as={Animated.View}
+          style={{
+            transform: [{ translateY: headerAnimateY }],
+          }}>
           <BackIcon onTouchEnd={closeModal} />
           <HeaderImage
             resizeMode="contain"
             source={require('../../assets/images/headerimage.png')}
           />
         </Header>
-        <DetailsContainer>
+
+        <DetailsContainer
+          as={Animated.View}
+          style={{
+            transform: [{ translateY: detailsAnimateY }],
+          }}>
           <Title>Digital Marketing</Title>
           <Title>Course </Title>
           <BookMarkIcon />
@@ -125,7 +215,12 @@ const List = (props: any) => {
             </DetailsItem>
           </CourseDetails>
         </DetailsContainer>
-        <ListContainer>
+
+        <ListContainer
+          as={Animated.View}
+          style={{
+            transform: [{ translateY: listAnimateY }],
+          }}>
           <Title>Lessons</Title>
           <FlatList
             contentContainerStyle={styles.list}
@@ -135,15 +230,24 @@ const List = (props: any) => {
             ItemSeparatorComponent={LessonSeparator}
           />
         </ListContainer>
-        <SubscribeButton>
-          <SubscribeText>Enroll Now</SubscribeText>
-        </SubscribeButton>
+        <ButtonContainer
+          as={Animated.View}
+          style={{
+            transform: [{ translateY: buttonAnimateY }],
+          }}>
+          <SubscribeButton>
+            <SubscribeText>Enroll Now</SubscribeText>
+          </SubscribeButton>
+        </ButtonContainer>
       </ModalContainer>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  modal: {
+    backgroundColor: '#eefaff',
+  },
   list: {
     marginTop: 15,
   },

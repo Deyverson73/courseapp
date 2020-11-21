@@ -8,20 +8,24 @@ export const StatusBar = styled.StatusBar.attrs({
 
 export const ModalContainer = styled.View`
   flex: 1;
-  background-color: #ffffff;
+  background-color: #eefaff;
 `;
 
 // Header
 export const Header = styled.View`
-  height: 30%;
+  height: 40%;
+  margin-top: -10%;
+  padding-top: 5%;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
   align-items: flex-end;
   background-color: #5d3ea8;
 `;
 
 export const HeaderImage = styled.Image`
   width: 75%;
-  height: 60%;
-  margin-top: 5%;
+  height: 50%;
+  margin-top: 10%;
   z-index: -100;
 `;
 
@@ -30,7 +34,7 @@ export const BackIcon = styled((props) => Icon(props, 'Ionicons')).attrs({
   color: '#ffffff',
 })`
   position: absolute;
-  top: 28px;
+  top: 68px;
   left: 28px;
   font-size: 20px;
   padding: 10px;
@@ -44,7 +48,7 @@ export const DetailsContainer = styled.View`
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
   padding: 28px 28px 0px;
-  margin-top: -18%;
+  margin-top: -25%;
   background-color: #eefaff;
 `;
 
@@ -140,6 +144,10 @@ export const LessonSeparator = styled.View`
 `;
 
 // Subscribe Button
+export const ButtonContainer = styled.View`
+  background-color: #ffffff;
+`;
+
 export const SubscribeButton = styled.TouchableHighlight`
   justify-content: center;
   align-items: center;
