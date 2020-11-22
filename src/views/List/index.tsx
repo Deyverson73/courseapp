@@ -235,7 +235,7 @@ const List = (props: any) => {
           style={{
             transform: [{ translateY: buttonAnimateY }],
           }}>
-          <SubscribeButton>
+          <SubscribeButton testID="enrollButton">
             <SubscribeText>Enroll Now</SubscribeText>
           </SubscribeButton>
         </ButtonContainer>

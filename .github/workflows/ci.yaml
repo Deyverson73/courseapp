@@ -1,0 +1,16 @@
+name: CI CoursesApp
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  install-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
+      - name: Run test app
+        run: yarn test

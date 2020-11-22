@@ -193,7 +193,7 @@ const Home = () => {
           transform: [{ translateY: footerAnimateY }],
         }}>
         <GridIcon />
-        <PlayButton onPress={() => openModal()}>
+        <PlayButton testID="playButton" onPress={() => openModal()}>
           <PlayIcon />
         </PlayButton>
         <GraphicIcon />
