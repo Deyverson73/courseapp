@@ -7,6 +7,7 @@ This project was built using the following technologies:
 - [React Native](https://facebook.github.io/react-native/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Styled Components](https://styled-components.com/)
+- [Testing Library](https://testing-library.com/)
 
 ## 💻 Project
 
@@ -30,6 +31,13 @@ yarn install
 ```sh
 cd courseapp
 react-native run-android
+```
+
+#### Testing
+
+```sh
+cd courseapp
+yarn test
 ```
 
 ---
